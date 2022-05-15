@@ -7,7 +7,7 @@
 
 
 TEST(TestContext, firstFromTask) {
-    constexpr size_t N = 1;
+    constexpr int N = 1;
     FirstNRepeatingStream stream(N);
 
 //    a   ->   a
@@ -52,7 +52,7 @@ TEST(TestContext, firstFromTask) {
 }
 
 TEST(TestContext, secondFromTask) {
-    constexpr size_t N = 2;
+    constexpr int N = 2;
     FirstNRepeatingStream stream(N);
 
     // b   ->   b
@@ -122,6 +122,64 @@ TEST(TestContext, secondFromTask) {
 
 // b   ->   nullopt
     result = stream.next('b');
+    expected = std::nullopt;
+    ASSERT_EQ(result, expected);
+}
+
+TEST(TestContext, zeroSize) {
+    constexpr int N = 0;
+    FirstNRepeatingStream stream(N);
+
+    auto result = stream.next('b');
+    std::optional<char> expected = std::nullopt;
+    ASSERT_EQ(result, expected);
+
+    result = stream.next('b');
+    expected = std::nullopt;
+    ASSERT_EQ(result, expected);
+
+    result = stream.next('a');
+    expected = std::nullopt;
+    ASSERT_EQ(result, expected);
+}
+
+TEST(TestContext, repeatBy3) {
+    constexpr int N = 2;
+    FirstNRepeatingStream stream(N);
+
+    auto result = stream.next('a');
+    std::optional<char> expected = 'a';
+    ASSERT_EQ(result, expected);
+
+    result = stream.next('b');
+    expected = 'a';
+    ASSERT_EQ(result, expected);
+
+    result = stream.next('b');
+    expected = 'a';
+    ASSERT_EQ(result, expected);
+
+    result = stream.next('b');
+    expected = 'a';
+    ASSERT_EQ(result, expected);
+
+    result = stream.next('c');
+    expected = 'a';
+    ASSERT_EQ(result, expected);
+
+    result = stream.next('a');
+    expected = 'a';
+    ASSERT_EQ(result, expected);
+
+    result = stream.next('a');
+    expected = 'c';
+    ASSERT_EQ(result, expected);
+
+    result = stream.next('c');
+    expected = 'c';
+    ASSERT_EQ(result, expected);
+
+    result = stream.next('c');
     expected = std::nullopt;
     ASSERT_EQ(result, expected);
 }

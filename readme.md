@@ -4,6 +4,7 @@
 
 ### примеры
 N=1
+```
 вход  выход
 a   ->   a
 b   ->   a
@@ -13,9 +14,10 @@ a   ->   c
 c   ->   nullopt
 f   ->   f
 g   ->   f
-
+```
 
 N=2
+```
 вход     выход
 b   ->   b
 c   ->   b
@@ -31,3 +33,4 @@ c   ->   nullopt
 c   ->   nullopt
 b   ->   nullopt
 b   ->   nullopt
+```
